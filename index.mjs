@@ -155,19 +155,20 @@ const YesIntentHandler = {
   }
 };
 
-  const HelpIntentHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
-    },
-    handle(handlerInput) {
-        const speakOutput = 'You can say hello to me! How can I help?';
+const HelpIntentHandler = {
+  canHandle(handlerInput) {
+    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+      && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
+  },
+  handle(handlerInput) {
+    const speechText = 'You can say things like "I am a visitor" or "I am an employee" to begin. How can I assist you today?';
+    const repromptText = 'Please tell me if you are a visitor or an employee, or ask how I can assist you.';
 
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
-            .getResponse();
-    }
+    return handlerInput.responseBuilder
+      .speak(speechText)           // Speech for the Help Intent
+      .reprompt(repromptText)      // Keeps the session open and reprompts the user
+      .getResponse();
+  }
 };
 
 const CancelAndStopIntentHandler = {
