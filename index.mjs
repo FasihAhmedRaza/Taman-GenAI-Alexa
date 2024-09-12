@@ -78,6 +78,7 @@ const LaunchRequestHandler = {
       } catch (error) {
         return handlerInput.responseBuilder
           .speak("Sorry, there was an error fetching your details. Please try again.")
+          .reprompt("What would you like to do next?")
           .getResponse();
       }
   
@@ -112,6 +113,7 @@ const QueryHelpIntentHandler = {
     } catch (error) {
       return handlerInput.responseBuilder
         .speak("Sorry, there was an error processing your request. Please try again.")
+         .reprompt("What would you like to do next?")
         .getResponse();
     }
 
@@ -220,7 +222,7 @@ const skillBuilder = SkillBuilders.custom()
 const skill = skillBuilder.create();
 
 const adapter = new ExpressAdapter(skill ,false, false);
-
+app.use(express.json())
 app.post('/api/v1/webhook-alexa' , adapter.getRequestHandlers());
 
 app.use(express.json())
